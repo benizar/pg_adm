@@ -1,5 +1,5 @@
 # pg_adm
-A PostgreSQL extension for administration tools
+A PostgreSQL extension providing some administrative tools.
 
 ## Docker Compose
 
@@ -25,6 +25,7 @@ Most of the provided tools are available from different projects:
 ## TODO:
 
 Check the following resources: 
+
 - [pg_cheat_funcs](https://github.com/MasaoFujii/pg_cheat_funcs) for PGLZ data compresion.
 
 
