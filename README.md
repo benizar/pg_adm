@@ -1,5 +1,6 @@
 # pg_adm
-A PostgreSQL extension providing some administrative tools.
+
+A PostgreSQL extension compiling different administration tools.
 
 ## Docker Compose
 
