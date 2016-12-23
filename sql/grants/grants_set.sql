@@ -1,10 +1,12 @@
 
-CREATE OR REPLACE FUNCTION adm.grant_on_tables(role_name text, permission text, mask text, schema_name text) RETURNS integer
-    AS $$
+
 -- Function that grants given permissions to given role on tables with given LIKE mask within given schema
 -- Example:
 --   SELECT grant_on_tables('role_developer','SELECT, INSERT, UPDATE, DELETE, RULE, REFERENCE, TRIGGER','%','public');
 -- will grant all the maximum permissions on all tables within public schema to role_developer role
+CREATE OR REPLACE FUNCTION adm.grant_on_tables(role_name text, permission text, mask text, schema_name text) RETURNS integer
+    AS $$
+
 DECLARE
 	obj record;
 	num integer;
@@ -22,3 +24,6 @@ BEGIN
 	RETURN num;
 END;
 $$ language plpgsql;
+
+
+

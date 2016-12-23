@@ -1,7 +1,8 @@
 
+
 --https://wiki.postgresql.org/wiki/Count_estimate
 -- This one is used to parse the explain results to replace SELECT count(*)
-CREATE OR REPLACE FUNCTION adm.count_estimate(query text) returns integer as $$
+CREATE OR REPLACE FUNCTION adm.explain_count_estimate(query text) returns integer as $$
 declare
 	rec record;
 	rows integer;
@@ -13,3 +14,6 @@ begin
 	return rows;
 end;
 $$ language plpgsql strict;
+
+
+

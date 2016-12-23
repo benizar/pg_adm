@@ -1,4 +1,5 @@
 
+
 -- Total on-disk sizes of all schemas of current database;
 CREATE VIEW adm.size_schemas AS
     select  schemaname
@@ -10,7 +11,6 @@ CREATE VIEW adm.size_schemas AS
             order by size_bytes desc;
 
 COMMENT ON VIEW adm.schema_sizes IS 'Total on-disk sizes of all schemas of current database';
-
 
 
 /*
@@ -31,8 +31,6 @@ pg_size_pretty | 4782 MB
 
 TODO: Always use pg_size_pretty
 */
-
-
 CREATE OR REPLACE FUNCTION adm.size_schema(text) RETURNS BIGINT AS $$
 SELECT SUM(pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename)))::BIGINT FROM pg_tables WHERE schemaname = $1
 $$ LANGUAGE SQL;
@@ -41,7 +39,9 @@ $$ LANGUAGE SQL;
 /*
 Here is a modified version of the script that allows you to supply a case-sensitive regular expression to only consider a subset of table names within the schema: 
 */
-
 CREATE OR REPLACE FUNCTION adm.size_schema_filter(text, text) RETURNS BIGINT AS $$
 SELECT SUM(pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename)))::BIGINT FROM pg_tables WHERE schemaname = $1 AND tablename ~ $2
 $$ LANGUAGE SQL;
+
+
+

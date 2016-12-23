@@ -1,8 +1,9 @@
+
 #
-# Makefile for pg_dw
+# Makefile for pg_adm
 # 
 
-EXTENSION = pg_dw
+EXTENSION = pg_adm
 EXTVERSION = $(shell grep default_version $(EXTENSION).control | sed -e "s/default_version[[:space:]]*=[[:space:]]*'\([^']*\)'/\1/")
 
 PG_CONFIG = pg_config
@@ -16,11 +17,20 @@ all: $(EXTENSION)--$(EXTVERSION).sql
 
 $(EXTENSION)--$(EXTVERSION).sql: sql/schemas.sql \
 \
-sql/ods/tables/person.sql \
-sql/ods/tables/provider.sql \
-sql/ods/tables/project.sql \
-\
-sql/dms/functions/*.sql
+sql/bloat/*.sql \
+sql/buffers/*.sql \
+sql/clone_objects/*.sql \
+sql/columns/*.sql \
+sql/dependency_display/*.sql \
+sql/disk_usage/*.sql \
+sql/explain/*.sql \
+sql/extensions/*.sql \
+sql/functions/*.sql \
+sql/grants/*.sql \
+sql/indexes/*.sql \
+sql/locking/*.sql \
+sql/normalization/*.sql \
+sql/pks/*.sql
 
 	cat $^ > $@
 
@@ -33,3 +43,5 @@ endif
 
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
+
+

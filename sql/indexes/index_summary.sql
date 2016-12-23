@@ -1,5 +1,6 @@
 
 
+
 -- https://wiki.postgresql.org/wiki/Index_Maintenance
 
 -- Here's a sample query to pull the number of rows, indexes, and some info about those indexes for each table. (Only works on 8.3; ditch the pg_size_pretty if you’re on an earlier version) 
@@ -10,8 +11,7 @@ Works with PostgreSQL >=8.1
 Written in SQL
 Depends on Nothing 
 */
-
-
+CREATE VIEW adm.index_summary AS
 SELECT
     pg_class.relname,
     pg_size_pretty(pg_class.reltuples::BIGINT) AS rows_in_bytes,
@@ -46,3 +46,6 @@ WHERE
 AND  pg_class.relkind = 'r'
 GROUP BY pg_class.relname, pg_class.reltuples, x.is_unique
 ORDER BY 2;
+
+
+

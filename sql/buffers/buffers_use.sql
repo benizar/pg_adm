@@ -1,4 +1,5 @@
 
+
 -- How many buffers does each table use. Taken from pg_buffercache documentation
 CREATE VIEW adm.buffers_use AS
 SELECT
@@ -11,3 +12,6 @@ FROM pg_class c
     ON (b.reldatabase=d.oid AND d.datname=current_database())
 GROUP BY c.relname
 ORDER BY 2 DESC;
+
+
+

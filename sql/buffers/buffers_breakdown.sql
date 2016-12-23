@@ -1,4 +1,5 @@
 
+
 -- Taken from the awesome "PostgreSQL 9.0 High Performance" book by Greg Smith.
 -- Buffer contents summary, with percentages
 CREATE VIEW adm.buffers_breakdown AS
@@ -17,5 +18,6 @@ FROM pg_class c
     ON (b.reldatabase = d.oid AND d.datname = current_database())
 GROUP BY c.oid,c.relname
 ORDER BY 3 DESC;
+
 
 

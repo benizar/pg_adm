@@ -29,3 +29,6 @@ WHERE nspname NOT LIKE E'pg\\_%' AND nspname != 'information_schema'
   AND reltuples >= 100              -- ignore tables with fewer than 100 rows
   AND stadistinct BETWEEN 0 AND 1   -- 0 to 1 distinct values
 ORDER BY nspname, relname, attname;
+
+
+

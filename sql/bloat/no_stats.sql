@@ -1,10 +1,11 @@
 
 
-CREATE OR REPLACE VIEW adm.no_stats AS
-
 -- no stats query
 -- to display tables/columns which are without stats
 -- so we can't estimate bloat
+
+CREATE OR REPLACE VIEW adm.no_stats AS
+
 SELECT table_schema, table_name,
     ( pg_class.relpages = 0 ) AS is_empty,
     ( psut.relname IS NULL OR ( psut.last_analyze IS NULL and psut.last_autoanalyze IS NULL ) ) AS never_analyzed,
@@ -24,3 +25,5 @@ FROM information_schema.columns
 WHERE pg_stats.attname IS NULL
     AND table_schema NOT IN ('pg_catalog', 'information_schema')
 GROUP BY table_schema, table_name, relpages, psut.relname, last_analyze, last_autoanalyze;
+
+

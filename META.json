@@ -1,28 +1,28 @@
 {
-   "name": "pg_dw",
-   "abstract": "A PostgreSQL extension for creating a minimalistic datawarehouse.",
-   "description": "This library contains a PostgreSQL extension, which creates a basic database structure for fast and easy storing, analyzing and publishing data.",
+   "name": "pg_adm",
+   "abstract": "A PostgreSQL extension compiling different administration tools.",
+   "description": "A PostgreSQL extension compiling different administration tools.",
    "version": "0.0.1",
    "maintainer": [
       "Benito M. Zaragozí <benizar@gmail.com>"
    ],
    "license": "GPL3",
    "provides": {
-      "pg_dw": {
-         "abstract": "This library contains a PostgreSQL extension, which creates a basic database structure for fast and easy storing, analyzing and publishing data.",
-         "file": "pg_dw.sql",
-         "docfile": "doc/pg_dw.md",
+      "pg_adm": {
+         "abstract": "A PostgreSQL extension compiling different administration tools.",
+         "file": "pg_adm.sql",
+         "docfile": "doc/pg_adm.md",
          "version": "0.0.1"
       }
    },
    "resources": {
       "homepage": "http://www.chichinabo.org/",
       "bugtracker": {
-         "web": "https://github.com/benizar/pg_dw/issues"
+         "web": "https://github.com/benizar/pg_adm/issues"
       },
       "repository": {
-        "url":  "git://github.com/benizar/pg_dw.git",
-        "web":  "https://github.com/benizar/pg_dw",
+        "url":  "git://github.com/benizar/pg_adm.git",
+        "web":  "https://github.com/benizar/pg_adm",
         "type": "git"
       }
    },
@@ -32,11 +32,11 @@
       "url": "http://pgxn.org/meta/spec.txt"
    },
    "tags": [
-      "small data",
-      "big data",
-      "geospatial",
-      "charts",
+      "reports",
+      "management",
+      "disk sizes",
+      "bloat",
       "statistics",
-      "geojson"
+      "maintenance"
    ]
 }

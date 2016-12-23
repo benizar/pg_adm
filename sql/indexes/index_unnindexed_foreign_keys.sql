@@ -1,11 +1,12 @@
 
+
+
 -- From https://wiki.postgresql.org/wiki/Unindexed_foreign_keys
 /*
 Unindexed Foreign Keys
 Works with PostgreSQL 9.2
 Written in SQL
 Depends on Nothing
-
 
 I'm not sure of the original source of this query, but it might be from Michael Fuhr in the pgsql-performance mailing lists back in 2007.
 
@@ -17,8 +18,7 @@ It has been modified in several ways:
 
 Tested in PostgreSQL 9.2 (might work with earlier versions).
 */
-
-CREATE OR REPLACE VIEW reports.unindexed_foreign_keys AS
+CREATE OR REPLACE VIEW adm.unindexed_foreign_keys AS
 WITH y AS (
     SELECT
         pg_catalog.format('%I.%I', n1.nspname, c1.relname)  AS referencing_tbl,
@@ -60,3 +60,6 @@ ORDER BY
     referenced_tbl,
     referencing_column,
     referenced_column;
+
+
+

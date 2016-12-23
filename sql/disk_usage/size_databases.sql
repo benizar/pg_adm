@@ -6,6 +6,25 @@ CREATE VIEW adm.size_databases AS
    pg_size_pretty(pg_database_size(datname)) AS pretty_size
    FROM pg_database;
 
+
+-- based on query from http://wiki.postgresql.org/wiki/Disk_Usage
+CREATE VIEW adm.database_size_with_privileges AS
+    SELECT
+        d.datname AS db_name,
+        pg_catalog.pg_get_userbyid(d.datdba) AS db_owner,
+        CASE WHEN pg_catalog.has_database_privilege(d.datname, 'CONNECT')
+            THEN pg_catalog.pg_size_pretty(pg_catalog.pg_database_size(d.datname))
+            ELSE 'No Access'
+        END AS db_size
+    FROM
+        pg_catalog.pg_database d
+    ORDER BY
+        db_size DESC
+;
+COMMENT ON VIEW adm.database_size_with_privileges IS 'List all databases and their disk usage';
+
+
+
 -- Show the size of the provided DB
 CREATE FUNCTION adm.size_database (db text) RETURNS text AS $$
    SELECT pg_size_pretty(pg_database_size($1));
@@ -42,3 +61,6 @@ FROM pg_catalog.pg_database d
         ELSE NULL
     END DESC -- nulls first
     LIMIT 20;
+
+
+

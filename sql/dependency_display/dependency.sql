@@ -1,4 +1,6 @@
-CREATE OR REPLACE VIEW report.dependency AS
+
+
+CREATE OR REPLACE VIEW adm.dependency AS
 WITH RECURSIVE preference AS (
   SELECT 10 AS max_depth
     , 16384 AS min_oid -- user objects only
@@ -78,5 +80,8 @@ WITH RECURSIVE preference AS (
     AND NOT (child.objid = ANY(parent.dependency_chain)) -- prevent circular referencing
 )
 SELECT * FROM dependency_hierarchy
-ORDER BY dependency_chain ;
+ORDER BY dependency_chain;
+
+
+
 

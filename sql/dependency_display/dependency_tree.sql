@@ -1,6 +1,7 @@
 
+
 -- Procedure to report depedency tree using regexp search pattern (relation-only)
-CREATE OR REPLACE FUNCTION report.dependency_tree(search_pattern text)
+CREATE OR REPLACE FUNCTION adm.dependency_tree(search_pattern text)
   RETURNS TABLE(dependency_tree text)
   SECURITY DEFINER LANGUAGE SQL
   AS $function$
@@ -33,9 +34,10 @@ WITH target AS (
 SELECT dependency_tree FROM list
 ORDER BY dependency_sort_chain;
 $function$ ;
- 
+
+
 -- Procedure to report depedency tree by specific relation name(s) (in text array)
-CREATE OR REPLACE FUNCTION report.dependency_tree(object_names text[])
+CREATE OR REPLACE FUNCTION adm.dependency_tree(object_names text[])
   RETURNS TABLE(dependency_tree text)
   SECURITY DEFINER LANGUAGE SQL
   AS $function$
@@ -59,9 +61,10 @@ WITH target AS (
 SELECT dependency_tree FROM list
 ORDER BY dependency_sort_chain;
 $function$ ;
- 
+
+
 -- Procedure to report depedency tree by oid
-CREATE OR REPLACE FUNCTION report.dependency_tree(object_ids oid[])
+CREATE OR REPLACE FUNCTION adm.dependency_tree(object_ids oid[])
   RETURNS TABLE(dependency_tree text)
   SECURITY DEFINER LANGUAGE SQL
   AS $function$
@@ -85,4 +88,7 @@ WITH target AS (
 SELECT dependency_tree FROM list
 ORDER BY dependency_sort_chain;
 $function$ ;
+
+
+
 
