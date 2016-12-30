@@ -10,7 +10,7 @@ CREATE VIEW adm.size_schemas AS
             group by schemaname
             order by size_bytes desc;
 
-COMMENT ON VIEW adm.schema_sizes IS 'Total on-disk sizes of all schemas of current database';
+COMMENT ON VIEW adm.size_schemas IS 'Total on-disk sizes of all schemas of current database';
 
 
 /*

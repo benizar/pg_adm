@@ -64,14 +64,15 @@ SELECT
   tsize.*,
   tstat.seq_scan, tstat.seq_tup_read, tstat.idx_scan, tstat.idx_tup_fetch
 FROM
-  adm.table_sizes tsize,
+  adm.size_tables_alt tsize,
   pg_stat_all_tables tstat
 WHERE
 tsize.rel_oid = tstat.relid
 ORDER BY
 tstat.seq_scan * tsize.size_raw DESC;
 
-COMMENT ON VIEW adm.table_scans_with_sizes IS 'View table sizes + seq scan and idx scan info. Useful to analyze how often seqscans are executed on large tables';
+COMMENT ON VIEW adm.size_tables_with_scans IS 'View table sizes + seq scan and idx scan info. Useful to analyze how often seqscans are executed on large tables';
+
 
 
 /*

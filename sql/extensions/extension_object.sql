@@ -36,7 +36,7 @@ CREATE VIEW adm.extension_objects AS
         refclassid = 'pg_extension'::regclass
 ;
 
-COMMENT ON VIEW adm.extension_object IS 'List of all objects packed in an extension with associated comment';
+COMMENT ON VIEW adm.extension_objects IS 'List of all objects packed in an extension with associated comment';
 
 
 

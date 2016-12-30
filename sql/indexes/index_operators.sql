@@ -4,8 +4,8 @@ CREATE OR REPLACE FUNCTION adm.index_operators(text)
 returns table (index_col text, indexable_operator text) AS $$
 
 SELECT
-  pg_get_indexdef(ss.indexrelid, (ss.iopc).n, TRUE) AS index_col,
-  amop.amopopr::regoperator AS indexable_operator
+  pg_get_indexdef(ss.indexrelid, (ss.iopc).n, TRUE)::text AS index_col,
+  amop.amopopr::regoperator::text AS indexable_operator
 FROM pg_opclass opc, pg_amop amop,
   (SELECT indexrelid, information_schema._pg_expandarray(indclass) AS iopc
    FROM pg_index

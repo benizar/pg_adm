@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION adm.dependency_tree(search_pattern text)
   AS $function$
 WITH target AS (
   SELECT objid, dependency_chain
-  FROM report.dependency
+  FROM adm.dependency
   WHERE object_identity ~ search_pattern
 )
 , list AS (
@@ -18,7 +18,7 @@ WITH target AS (
     ) AS dependency_tree
   , dependency_sort_chain
   FROM target
-  JOIN report.dependency report
+  JOIN adm.dependency report
     ON report.objid = ANY(target.dependency_chain) -- root-bound chain
     OR target.objid = ANY(report.dependency_chain) -- leaf-bound chain
   WHERE LENGTH(search_pattern) > 0
@@ -28,7 +28,7 @@ WITH target AS (
   SELECT
     format('%*s%s %s', 4*level, '', object_type, object_identity) AS depedency_tree
   , dependency_sort_chain
-  FROM report.dependency
+  FROM adm.dependency
   WHERE LENGTH(COALESCE(search_pattern,'')) = 0
 )
 SELECT dependency_tree FROM list
@@ -43,7 +43,7 @@ CREATE OR REPLACE FUNCTION adm.dependency_tree(object_names text[])
   AS $function$
 WITH target AS (
   SELECT objid, dependency_chain
-  FROM report.dependency
+  FROM adm.dependency
   JOIN unnest(object_names) AS target(objname) ON objid = objname::regclass
 )
 , list AS (
@@ -54,7 +54,7 @@ WITH target AS (
     ) AS dependency_tree
   , dependency_sort_chain
   FROM target
-  JOIN report.dependency report
+  JOIN adm.dependency report
     ON report.objid = ANY(target.dependency_chain) -- root-bound chain
     OR target.objid = ANY(report.dependency_chain) -- leaf-bound chain
 )
@@ -70,7 +70,7 @@ CREATE OR REPLACE FUNCTION adm.dependency_tree(object_ids oid[])
   AS $function$
 WITH target AS (
   SELECT objid, dependency_chain
-  FROM report.dependency
+  FROM adm.dependency
   JOIN unnest(object_ids) AS target(objid) USING (objid)
 )
 , list AS (
@@ -81,7 +81,7 @@ WITH target AS (
     ) AS dependency_tree
   , dependency_sort_chain
   FROM target
-  JOIN report.dependency report
+  JOIN adm.dependency report
     ON report.objid = ANY(target.dependency_chain) -- root-bound chain
     OR target.objid = ANY(report.dependency_chain) -- leaf-bound chain
 )

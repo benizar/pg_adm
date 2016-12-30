@@ -1,7 +1,7 @@
 
 
 
-CREATE OR REPLACE VIEW adm.blocking_tree AS
+/*CREATE OR REPLACE VIEW adm.blocking_tree AS
 WITH RECURSIVE
   LOCK AS (
   SELECT pid,
@@ -105,7 +105,7 @@ SELECT concat(lpad('=> ', 4*depth, ' '),pid::text) AS "PID"
 , lock_info AS "Lock Info"
 , lock_state AS "State"
 FROM blocking_lock
-ORDER BY seq;
+ORDER BY seq;*/
 
 
 

@@ -7,7 +7,7 @@ select datname from pg_database where datname <> 'template0';
 
 
 
-CREATE VIEW adm.grants_summary AS
+/*CREATE VIEW adm.grants_summary AS
   select
     usename,
     relation,
@@ -15,7 +15,7 @@ CREATE VIEW adm.grants_summary AS
     array_to_string(array_agg(priv order by priv), ', ') permissions
    from ($1) data
   group by usename, relation, relation_type
-  order by relation, usename;
+  order by relation, usename;*/
 
 
 CREATE VIEW adm.grants_databases AS

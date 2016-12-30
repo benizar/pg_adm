@@ -30,7 +30,7 @@ LEFT OUTER JOIN
 WHERE t.schemaname='public'
 ORDER BY 1,2;
 
-COMMENT ON VIEW index_size_usage IS 'List all indexes and index usage statistics, easily find unused indexes';
+COMMENT ON VIEW adm.index_size_usage IS 'List all indexes and index usage statistics, easily find unused indexes';
 
 
 --Alternative

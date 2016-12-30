@@ -1,7 +1,8 @@
 
 
---https://www.postgresql.org/message-id/CANu8FiyJtt-0q%3DbkUxyra66tHi6FFzgU8TqVR2aahseCBDDntA%40mail.gmail.com
-﻿-- Function: clone_schema(text, text)
+
+--https://www.postgresql.org/message-id/CANu8FiyJtt-0q%3DbkUxyra66tHi6FFzgU8TqVR2aahseCBDDntA%40mail.gmail.com﻿
+-- Function: clone_schema(text, text)
 
 -- DROP FUNCTION clone_schema(text, text);
 
@@ -189,8 +190,6 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION clone_schema(text, text, boolean)
-  OWNER TO postgres;
 
 
 
