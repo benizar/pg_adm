@@ -2,3 +2,4 @@ comment = 'A PostgreSQL extension providing some administrative tools.'
 default_version = '0.0.1'
 relocatable = false
 requires = 'pg_buffercache'
+schema = adm
