@@ -3,13 +3,60 @@
 A PostgreSQL extension compiling different administration tools.
 
 
+
+- [Introduction](#introduction)
+  - [Contributing](#contributing)
+  - [Issues](#issues)
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+- [Maintenance](#maintenance)
+  - [Upgrading](#upgrading)
+  - [Shell Access](#shell-access)
+
+
+# Introduction
+
+## Contributing
+
+## Issues
+
+
+
+# Getting started
+
+
+## Installation
+
+Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/sameersbn/postgresql) and is the recommended method of installation.
+
+> **Note**: Builds are also available on [Quay.io](https://quay.io/repository/sameersbn/postgresql)
+
+```bash
+docker pull sameersbn/postgresql:9.5-4
+```
+
+Alternatively you can build the image yourself.
+
+```bash
+docker build -t sameersbn/postgresql github.com/sameersbn/docker-postgresql
+```
+
+## Shell Access
+
+For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`:
+
+```bash
+docker exec -it postgresql bash
+```
+
+
 ## Docker Compose
 
 TODO: Build a compose for development and simple testing.
 
 ## Dockerfile
 
-TODO: Build a dockerfile for development and simple testing.
+
 
 ## Documentation
 
@@ -80,9 +127,7 @@ Most of the provided tools are available from different projects:
 - [postgres_useful](https://github.com/eddienko/postgres/blob/master/utils/postgres_useful.sql)
 - [pgpermisions](https://github.com/Gibheer/pgpermissions)
 
-
-
-## TODO:
+### TODO:
 
 Check the following resources: 
 
