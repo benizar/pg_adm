@@ -107,11 +107,7 @@ If that doesn't work, for testing purposes you also can do:
 
 Once the extension is installed, you can add it to a database. If you're running PostgreSQL 9.1.0 or greater, it's a simple as connecting to a database as a super user and running:
 
-    CREATE EXTENSION pg_adm SCHEMA adm;
-
-pg_adm will be installed in its own schema, with all its objects. If you want to install semver and all of its supporting objects into a specific schema, use the `PGOPTIONS` environment variable to specify the schema, like so:
-
-    PGOPTIONS=--search_path=extensions psql -d mydb -f semver.sql
+    CREATE EXTENSION pg_adm;
 
 ## Dependencies
 
