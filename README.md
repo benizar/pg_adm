@@ -1,69 +1,69 @@
 # pg_adm
 
-A PostgreSQL extension compiling different administration tools.
-
-
-
 - [Introduction](#introduction)
+  - [Postgres xtensions](#postgres-extensions)
   - [Contributing](#contributing)
-  - [Issues](#issues)
 - [Getting started](#getting-started)
-  - [Installation](#installation)
-- [Maintenance](#maintenance)
-  - [Upgrading](#upgrading)
-  - [Shell Access](#shell-access)
+  - [Using Dockers](#using-dockers)
+  - [Install the extension](#install-the-extension)
+  - [Dependencies](#dependencies)
+- [Acknowledgements](#acknowledgements)
+- [TODOs](#todos)
 
 
 # Introduction
 
+A PostgreSQL extension compiling different administration tools.
+
+
+## Postgres Extensions
+
+PostgreSQL is an object-relational database management system (ORDBMS) with an emphasis on extensibility and standards-compliance [[source](https://en.wikipedia.org/wiki/PostgreSQL)].
+
+Apart from the PostgreSQL official documentation you can check the [PostgreSQL Extension Network](http://pgxn.org/) for additional information about extensions.
+
 ## Contributing
 
-## Issues
-
+- Send a pull request with your awesome features and bug fixes
+- Help users resolve their [issues](../../issues?q=is%3Aopen+is%3Aissue).
 
 
 # Getting started
 
+## Using dockers
 
-## Installation
-
-Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/sameersbn/postgresql) and is the recommended method of installation.
-
-> **Note**: Builds are also available on [Quay.io](https://quay.io/repository/sameersbn/postgresql)
+Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/benizar/pg_adm) and is the recommended method of installation.
 
 ```bash
-docker pull sameersbn/postgresql:9.5-4
+docker pull benizar/pg_adm
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t sameersbn/postgresql github.com/sameersbn/docker-postgresql
+docker build -t benizar/pg_adm github.com/benizar/pg_adm
 ```
 
-## Shell Access
+Start this image using:
+
+```bash
+docker run --name pg_adm -itd --restart always \
+  --publish 5432:5432
+  --volume /srv/docker/postgresql:/var/lib/postgresql \
+  benizar/pg_adm
+```
+
+*Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
+
 
 For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`:
 
 ```bash
-docker exec -it postgresql bash
+docker exec -it pg_adm bash
 ```
 
 
-## Docker Compose
-
-TODO: Build a compose for development and simple testing.
-
-## Dockerfile
-
-
-
-## Documentation
-
-TODO: Build doc/readme.md from all readme.md in this repo and object comments.
-
-
-## Installation
+## Install the extension
 
 To build pg_adm:
 
@@ -115,10 +115,11 @@ pg_adm will be installed in its own schema, with all its objects. If you want to
 
 ## Dependencies
 
-The `pg_adm` extension depends on other postgres extensions. See de `pg_adm.control` file has no dependencies other than PostgreSQL and PL/pgSQL.
+The `pg_adm` extension depends on other postgres extensions. See the `pg_adm.control` file.
 
 
-## Acknowledgements
+
+# Acknowledgements
 
 Most of the provided tools are available from different projects:
 
@@ -127,7 +128,8 @@ Most of the provided tools are available from different projects:
 - [postgres_useful](https://github.com/eddienko/postgres/blob/master/utils/postgres_useful.sql)
 - [pgpermisions](https://github.com/Gibheer/pgpermissions)
 
-### TODO:
+
+# TODOs:
 
 Check the following resources: 
 
