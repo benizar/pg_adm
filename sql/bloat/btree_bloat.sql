@@ -85,7 +85,7 @@ FROM (
 -- WHERE NOT is_na
 ORDER BY 2,3,4;
 
-COMMENT ON VIEW adm.btree_bloat IS 'View that displays approximate btree bloat';
+COMMENT ON VIEW adm.btree_bloat IS 'Displays approximate btree bloat';
 
 
 
@@ -196,7 +196,7 @@ FROM format_bloat
 WHERE ( bloat_pct > 50 and bloat_mb > 10 )
 ORDER BY bloat_mb DESC;
 
-COMMENT ON VIEW adm.btree_bloat_alt IS 'View that displays approximate btree bloat';
+COMMENT ON VIEW adm.btree_bloat_alt IS 'Displays approximate btree bloat';
 
 
 

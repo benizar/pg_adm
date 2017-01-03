@@ -64,7 +64,7 @@ FROM (
 -- WHERE NOT is_na
 --   AND tblpages*((pst).free_percent + (pst).dead_tuple_percent)::float4/100 >= 1
 
-COMMENT ON VIEW adm.table_bloat IS 'This view displays approximate table bloat';
+COMMENT ON VIEW adm.table_bloat IS 'Displays approximate table bloat';
 
 
 --TODO: compare with adm.table_bloat
@@ -211,5 +211,5 @@ WHERE ( pct_bloat >= 50 AND mb_bloat >= 10 )
     OR ( pct_bloat >= 25 AND mb_bloat >= 1000 )
 ORDER BY pct_bloat DESC;
 
-COMMENT ON VIEW adm.table_bloat_alt IS 'This view displays approximate table bloat';
+COMMENT ON VIEW adm.table_bloat_alt IS 'Displays approximate table bloat';
 

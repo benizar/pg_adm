@@ -5,7 +5,7 @@
 CREATE VIEW adm.object_list_databases AS
 select datname from pg_database where datname <> 'template0';
 
-
+COMMENT ON VIEW adm.object_list_databases IS 'List all databases.';
 
 
 /*CREATE VIEW adm.grants_summary AS
@@ -35,7 +35,7 @@ from
   ) p(priv, privorder)
 where has_database_privilege(u.usename, d.datname, p.priv);
 
-
+COMMENT ON VIEW adm.grants_databases IS 'List all databases with their grants.';
 
 
 CREATE VIEW adm.grants_roles AS
@@ -49,7 +49,7 @@ from
   join pg_auth_members am on source.oid = am.member
   join pg_roles target on am.roleid = target.oid;
 
-
+COMMENT ON VIEW adm.grants_roles IS 'List all roles with their grants.';
 
 
 CREATE VIEW adm.grants_table AS
@@ -75,7 +75,7 @@ where
   and n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
 order by n.nspname, c.relname, p.privorder;
 
-
+COMMENT ON VIEW adm.grants_table IS 'List all tables with their grants.';
 
 
 --TODO: convert this to a view

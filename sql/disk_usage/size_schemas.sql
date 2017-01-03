@@ -38,7 +38,7 @@ CREATE OR REPLACE FUNCTION adm.size_schema_filter(text, text) RETURNS TEXT AS $$
 SELECT pg_size_pretty(SUM(pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename)))::BIGINT) FROM pg_tables WHERE schemaname = $1 AND tablename ~ $2
 $$ LANGUAGE SQL;
 
-COMMENT ON FUNCTION adm.size_schema(text) IS 'Returns the pretty size of the given schema. Allows you to supply a case-sensitive regular expression to only consider a subset of table names within the schema.';
+COMMENT ON FUNCTION adm.size_schema_filter(text, text) IS 'Returns the pretty size of the given schema. Allows you to supply a case-sensitive regular expression to only consider a subset of table names within the schema.';
 
 
 
