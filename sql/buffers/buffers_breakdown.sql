@@ -19,5 +19,7 @@ FROM pg_class c
 GROUP BY c.oid,c.relname
 ORDER BY 3 DESC;
 
+COMMENT ON VIEW adm.buffers_breakdown IS 'Displays a buffer contents summary, with percentages';
+
 
 

@@ -82,6 +82,7 @@ WITH RECURSIVE preference AS (
 SELECT * FROM dependency_hierarchy
 ORDER BY dependency_chain;
 
+COMMENT ON VIEW adm.dependency IS 'Display the dependency report.';
 
 
 

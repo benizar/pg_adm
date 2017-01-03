@@ -25,5 +25,5 @@ BEGIN
 END;
 $$ language plpgsql;
 
-
+COMMENT ON FUNCTION adm.grant_on_tables(text, text, text, text) IS 'Grants given permissions to given role on tables with given LIKE mask within given schema';
 

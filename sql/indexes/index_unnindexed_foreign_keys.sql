@@ -2,22 +2,6 @@
 
 
 -- From https://wiki.postgresql.org/wiki/Unindexed_foreign_keys
-/*
-Unindexed Foreign Keys
-Works with PostgreSQL 9.2
-Written in SQL
-Depends on Nothing
-
-I'm not sure of the original source of this query, but it might be from Michael Fuhr in the pgsql-performance mailing lists back in 2007.
-
-It has been modified in several ways:
-
-    Size of referencing and referenced tables added,
-    Suggestion on index to add,
-    Searches only for single-column or compound indexes where the leading column is the referencing key. 
-
-Tested in PostgreSQL 9.2 (might work with earlier versions).
-*/
 CREATE OR REPLACE VIEW adm.unindexed_foreign_keys AS
 WITH y AS (
     SELECT
@@ -60,6 +44,8 @@ ORDER BY
     referenced_tbl,
     referencing_column,
     referenced_column;
+
+COMMENT ON VIEW adm.unindexed_foreign_keys IS 'Displays unnindexed foreign keys.';
 
 
 

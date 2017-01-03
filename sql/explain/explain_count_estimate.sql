@@ -15,5 +15,7 @@ begin
 end;
 $$ language plpgsql strict;
 
+COMMENT ON FUNCTION adm.explain_count_estimate(text) IS 'Returns an approximated SELECT count(*) for your query.';
+
 
 

@@ -13,5 +13,7 @@ FROM pg_class c
 GROUP BY c.relname
 ORDER BY 2 DESC;
 
+COMMENT ON VIEW adm.buffers_use IS 'Displays how many buffers does each table use.';
+
 
 

@@ -12,13 +12,13 @@ FROM pg_opclass opc, pg_amop amop,
    WHERE indexrelid = $1::regclass) ss
 WHERE amop.amopfamily = opc.opcfamily AND opc.oid = (ss.iopc).x
 ORDER BY (ss.iopc).n, indexable_operator;
-
 $$ LANGUAGE SQL;
 
+COMMENT ON FUNCTION adm.index_operators(text) IS 'Returns operators usable with a particular index.';
 
-/*
-Finding the operators usable with an index
-*/
+
+
+--Finding the operators usable with an index
 CREATE VIEW adm.index_operators AS
     WITH index_information AS (
         SELECT
@@ -64,8 +64,8 @@ CREATE VIEW adm.index_operators AS
     ORDER BY
         schema_name,
         table_name,
-        index_name
-;
+        index_name;
+
 COMMENT ON VIEW adm.index_operators IS 'List of all valid operators for an index';
 
 

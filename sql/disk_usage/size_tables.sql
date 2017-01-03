@@ -57,6 +57,9 @@ SELECT n.nspname, c.relname, c.relkind AS type,
   WHERE (n.nspname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND n.nspname !~ '^pg_toast'::text AND (c.relkind = ANY (ARRAY['r'::"char", 'i'::"char"]))
   ORDER BY pg_total_relation_size(c.oid::regclass) DESC;
 
+COMMENT ON VIEW adm.size_tables_alt IS 'List all table sizes, index sizes and various size-related metrics';
+
+
 
 -- Same as above, but with seq scan and idx scan info. Useful to extract seqscan info on large tables.
 CREATE VIEW adm.size_tables_with_scans AS
@@ -74,16 +77,9 @@ tstat.seq_scan * tsize.size_raw DESC;
 COMMENT ON VIEW adm.size_tables_with_scans IS 'View table sizes + seq scan and idx scan info. Useful to analyze how often seqscans are executed on large tables';
 
 
+-- General Table Size Information
+-- This will report size information for all tables, in both raw bytes and "pretty" form.
 
-/*
-General Table Size Information
-
-Works with PostgreSQL >=9.0
-Written in SQL
-Depends on Nothing
-
-This will report size information for all tables, in both raw bytes and "pretty" form.
-*/
 CREATE VIEW adm.size_tables_general AS
 
 SELECT *, pg_size_pretty(total_bytes) AS total
@@ -103,6 +99,7 @@ SELECT *, pg_size_pretty(total_bytes) AS total
   ) a
 ) a;
 
+COMMENT ON VIEW adm.size_tables_general IS 'Displays size information for all tables, in both raw bytes and "pretty" form.';
 
 
 /*Finding the total size of your biggest tables
@@ -120,6 +117,8 @@ SELECT nspname || '.' || relname AS "relation",
     AND nspname !~ '^pg_toast'
   ORDER BY pg_total_relation_size(C.oid) DESC
   LIMIT 20;
+
+COMMENT ON VIEW adm.size_tables_biggest IS 'Displays the sum of total disk space used by each table including indexes and toasted data rather than breaking out the individual pieces.';
 
 
 

@@ -7,6 +7,7 @@ select datname from pg_database where datname <> 'template0';
 
 
 
+
 /*CREATE VIEW adm.grants_summary AS
   select
     usename,
@@ -36,6 +37,7 @@ where has_database_privilege(u.usename, d.datname, p.priv);
 
 
 
+
 CREATE VIEW adm.grants_roles AS
 select
   source.rolname usename,
@@ -46,6 +48,7 @@ from
   pg_roles source
   join pg_auth_members am on source.oid = am.member
   join pg_roles target on am.roleid = target.oid;
+
 
 
 
@@ -71,6 +74,9 @@ where
   (c.relkind IN ('r', 'v') and has_table_privilege(u.usesysid, c.oid, priv))
   and n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
 order by n.nspname, c.relname, p.privorder;
+
+
+
 
 --TODO: convert this to a view
 /*

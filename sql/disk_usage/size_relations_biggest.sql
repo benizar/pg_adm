@@ -1,9 +1,6 @@
 
 
 /*Finding the size of your biggest relations
-Works with PostgreSQL >=8.1
-Written in SQL
-Depends on Nothing
 
 Relations are objects in the database such as tables and indexes, and this query shows the size of all the individual parts. Tables which have both regular and TOAST pieces will be broken out into separate components; an example showing how you might include those into the main total is available in the documentation, and as of PostgreSQL 9.0 it's possible to include it automatically by using pg_table_size here instead of pg_relation_size:
 
@@ -20,5 +17,5 @@ SELECT nspname || '.' || relname AS "relation",
   ORDER BY pg_relation_size(C.oid) DESC
   LIMIT 20;
 
-
+COMMENT ON VIEW adm.size_relations_biggest IS 'Finding the size of your biggest relations.';
 

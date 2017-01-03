@@ -1,12 +1,13 @@
 
 
+-- This view displays approximate table bloat. 
+-- Taken from https://github.com/ioguix/pgsql-bloat-estimation 
+-- Needs to be updated.
+
 /* WARNING: executed with a non-superuser role, the query inspect only tables you are granted to read.
 * This query is compatible with PostgreSQL 9.0 and more
 */
 
--- This view displays approximate table bloat. 
--- Taken from https://github.com/ioguix/pgsql-bloat-estimation 
--- Needs to be updated.
 CREATE OR REPLACE VIEW adm.table_bloat AS
 
 SELECT current_database(), schemaname, tblname, bs*tblpages AS real_size,
@@ -63,6 +64,7 @@ FROM (
 -- WHERE NOT is_na
 --   AND tblpages*((pst).free_percent + (pst).dead_tuple_percent)::float4/100 >= 1
 
+COMMENT ON VIEW adm.table_bloat IS 'This view displays approximate table bloat';
 
 
 --TODO: compare with adm.table_bloat
@@ -209,5 +211,5 @@ WHERE ( pct_bloat >= 50 AND mb_bloat >= 10 )
     OR ( pct_bloat >= 25 AND mb_bloat >= 1000 )
 ORDER BY pct_bloat DESC;
 
-
+COMMENT ON VIEW adm.table_bloat_alt IS 'This view displays approximate table bloat';
 

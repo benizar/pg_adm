@@ -27,3 +27,4 @@ WHERE pg_stats.attname IS NULL
 GROUP BY table_schema, table_name, relpages, psut.relname, last_analyze, last_autoanalyze;
 
 
+COMMENT ON VIEW adm.no_stats IS 'View that displays tables/columns which are without stats';

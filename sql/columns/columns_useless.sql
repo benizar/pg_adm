@@ -1,18 +1,7 @@
 
 
-/*
-Finding useless columns
-
-Works with PostgreSQL 8.2+
-Written in SQL
-Depends on Nothing
-
-This query finds columns in the whole database that have no more than 1 distinct value in its table, using planner's estimates.
-
-This is useful for finding redundant and unused columns.
-
-See also: pg_statistic catalog documentation
-*/
+-- Finding useless columns
+-- This is useful for finding redundant and unused columns.
 
 CREATE VIEW adm.columns_useless AS
 SELECT nspname, relname, attname, typname,
@@ -29,6 +18,8 @@ WHERE nspname NOT LIKE E'pg\\_%' AND nspname != 'information_schema'
   AND reltuples >= 100              -- ignore tables with fewer than 100 rows
   AND stadistinct BETWEEN 0 AND 1   -- 0 to 1 distinct values
 ORDER BY nspname, relname, attname;
+
+COMMENT ON VIEW adm.columns_useless IS 'Finds columns in the whole database that have no more than 1 distinct value in its table, using planner estimates.';
 
 
 

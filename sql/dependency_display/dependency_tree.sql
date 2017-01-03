@@ -35,6 +35,9 @@ SELECT dependency_tree FROM list
 ORDER BY dependency_sort_chain;
 $function$ ;
 
+COMMENT ON FUNCTION adm.dependency_tree(text) IS 'Report depedency tree using regexp search pattern (relation-only)';
+
+
 
 -- Procedure to report depedency tree by specific relation name(s) (in text array)
 CREATE OR REPLACE FUNCTION adm.dependency_tree(object_names text[])
@@ -61,6 +64,9 @@ WITH target AS (
 SELECT dependency_tree FROM list
 ORDER BY dependency_sort_chain;
 $function$ ;
+
+COMMENT ON FUNCTION adm.dependency_tree(text[]) IS 'Report depedency tree by specific relation name(s) (in text array)';
+
 
 
 -- Procedure to report depedency tree by oid
@@ -89,6 +95,7 @@ SELECT dependency_tree FROM list
 ORDER BY dependency_sort_chain;
 $function$ ;
 
+COMMENT ON FUNCTION adm.dependency_tree(oid[]) IS 'Report depedency tree by oid';
 
 
 

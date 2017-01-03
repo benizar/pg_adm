@@ -1,14 +1,12 @@
 
 
-
+-- This view displays approximate btree bloat. 
+-- Taken from https://github.com/ioguix/pgsql-bloat-estimation 
+-- Needs to be updated.
 -- WARNING: executed with a non-superuser role, the query inspect only index on tables you are granted to read.
 -- WARNING: rows with is_na = 't' are known to have bad statistics ("name" type is not supported).
 -- This query is compatible with PostgreSQL 8.2 and after
 
-
--- This view displays approximate btree bloat. 
--- Taken from https://github.com/ioguix/pgsql-bloat-estimation 
--- Needs to be updated.
 CREATE OR REPLACE VIEW adm.btree_bloat AS
 
 SELECT current_database(), nspname AS schemaname, tblname, idxname, bs*(relpages)::bigint AS real_size,
@@ -87,10 +85,13 @@ FROM (
 -- WHERE NOT is_na
 ORDER BY 2,3,4;
 
+COMMENT ON VIEW adm.btree_bloat IS 'View that displays approximate btree bloat';
+
 
 
 
 --TODO: compare with adm.btree_bloat
+
 CREATE OR REPLACE VIEW adm.btree_bloat_alt AS
 
 -- btree index stats query
@@ -194,5 +195,8 @@ SELECT *
 FROM format_bloat
 WHERE ( bloat_pct > 50 and bloat_mb > 10 )
 ORDER BY bloat_mb DESC;
+
+COMMENT ON VIEW adm.btree_bloat_alt IS 'View that displays approximate btree bloat';
+
 
 

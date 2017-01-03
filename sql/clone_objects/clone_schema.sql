@@ -1,10 +1,9 @@
 
 
-
 --https://www.postgresql.org/message-id/CANu8FiyJtt-0q%3DbkUxyra66tHi6FFzgU8TqVR2aahseCBDDntA%40mail.gmail.com﻿
--- Function: clone_schema(text, text)
-
--- DROP FUNCTION clone_schema(text, text);
+--  This function will clone all sequences, tables, data, views & functions from any existing schema to a new one
+-- SAMPLE CALL:
+-- SELECT clone_schema('public', 'new_schema', TRUE);
 
 CREATE OR REPLACE FUNCTION adm.clone_schema(
     source_schema text,
@@ -12,10 +11,6 @@ CREATE OR REPLACE FUNCTION adm.clone_schema(
     include_recs boolean)
   RETURNS void AS
 $BODY$
-
---  This function will clone all sequences, tables, data, views & functions from any existing schema to a new one
--- SAMPLE CALL:
--- SELECT clone_schema('public', 'new_schema', TRUE);
 
 DECLARE
   src_oid          oid;
@@ -188,8 +183,9 @@ BEGIN
 END;
  
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
+  LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION adm.clone_schema (text, text, boolean) IS 'Clone all sequences, tables, data, views & functions from any existing schema to a new one';
 
 
 

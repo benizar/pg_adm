@@ -13,5 +13,7 @@ CREATE OR REPLACE VIEW adm.pks_tables_without AS SELECT
         AND n.nspname NOT IN ('information_schema', 'pg_catalog')
         AND c.relkind='r' ) where c.relhaspkey = 'f';
 
+COMMENT ON VIEW adm.pks_tables_without IS 'Displays tables without primary keys.';
+
 
 

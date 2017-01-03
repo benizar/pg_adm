@@ -1,4 +1,5 @@
 
+
 --https://wiki.postgresql.org/wiki/Search_public_functions
 -- load into db as superuser
 --select function_name,matching_terms from search_public_functions('crosstab|intersect|except|ctid',true);
@@ -61,6 +62,8 @@ BEGIN
         END LOOP;
 END;
 $body$ language plpgsql SECURITY DEFINER;
+
+COMMENT ON FUNCTION adm.search_public_functions(TEXT, BOOLEAN, OUT TEXT, OUT TEXT) IS 'Search all functions in your PostgreSQL db for any matching terms.';
 
 
 

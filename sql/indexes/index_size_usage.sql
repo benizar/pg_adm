@@ -1,9 +1,7 @@
 
 
-/*
-Index size/usage statistics
-based on query from http://wiki.postgresql.org/wiki/Index_Maintenance
-*/
+--Index size/usage statistics
+--based on query from http://wiki.postgresql.org/wiki/Index_Maintenance
 CREATE VIEW adm.index_size_usage AS
 
 SELECT
@@ -57,5 +55,6 @@ CREATE VIEW adm.index_size_usage_alt AS
         schema_name,
         table_name;
 
+COMMENT ON VIEW adm.index_size_usage_alt IS 'List all indexes and index usage statistics, easily find unused indexes';
 
 
