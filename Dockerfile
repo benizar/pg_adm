@@ -1,4 +1,4 @@
-FROM postgres:9.6
+FROM benizar/postgres-ext:9.6
 MAINTAINER Benito Zaragozí <benizar@gmail.com>
 
 
@@ -9,14 +9,6 @@ MAINTAINER Benito Zaragozí <benizar@gmail.com>
 ENV SOURCE https://github.com/benizar/
 ENV SAKILA https://github.com/benizar/pg_sakila_db.git
 
-##############
-# Installation
-##############
-
-RUN apt-get update --fix-missing -y
-RUN apt-get install -y build-essential checkinstall apt-utils
-RUN apt-get install -y wget git-core
-RUN apt-get install -y postgresql-server-dev-$PG_MAJOR
 
 ################
 # Install pg_sakila_db
