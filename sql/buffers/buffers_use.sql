@@ -1,7 +1,7 @@
 
 
 -- How many buffers does each table use. Taken from pg_buffercache documentation
-CREATE VIEW adm.buffers_use AS
+CREATE VIEW buffers_use AS
 SELECT
   c.relname,
   count(*) AS buffers
@@ -13,7 +13,7 @@ FROM pg_class c
 GROUP BY c.relname
 ORDER BY 2 DESC;
 
-COMMENT ON VIEW adm.buffers_use IS 'Displays how many buffers does each table use.';
+COMMENT ON VIEW buffers_use IS 'Displays how many buffers does each table use.';
 
 
 

@@ -3,7 +3,7 @@
 -- Finding useless columns
 -- This is useful for finding redundant and unused columns.
 
-CREATE VIEW adm.columns_useless AS
+CREATE VIEW columns_useless AS
 SELECT nspname, relname, attname, typname,
     (stanullfrac*100)::INT AS null_percent,
     CASE WHEN stadistinct >= 0 THEN stadistinct ELSE abs(stadistinct)*reltuples END AS "distinct",
@@ -19,7 +19,7 @@ WHERE nspname NOT LIKE E'pg\\_%' AND nspname != 'information_schema'
   AND stadistinct BETWEEN 0 AND 1   -- 0 to 1 distinct values
 ORDER BY nspname, relname, attname;
 
-COMMENT ON VIEW adm.columns_useless IS 'Finds columns in the whole database that have no more than 1 distinct value in its table, using planner estimates.';
+COMMENT ON VIEW columns_useless IS 'Finds columns in the whole database that have no more than 1 distinct value in its table, using planner estimates.';
 
 
 

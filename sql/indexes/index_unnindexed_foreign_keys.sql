@@ -2,7 +2,7 @@
 
 
 -- From https://wiki.postgresql.org/wiki/Unindexed_foreign_keys
-CREATE OR REPLACE VIEW adm.unindexed_foreign_keys AS
+CREATE OR REPLACE VIEW unindexed_foreign_keys AS
 WITH y AS (
     SELECT
         pg_catalog.format('%I.%I', n1.nspname, c1.relname)  AS referencing_tbl,
@@ -45,7 +45,7 @@ ORDER BY
     referencing_column,
     referenced_column;
 
-COMMENT ON VIEW adm.unindexed_foreign_keys IS 'Displays unnindexed foreign keys.';
+COMMENT ON VIEW unindexed_foreign_keys IS 'Displays unnindexed foreign keys.';
 
 
 

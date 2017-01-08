@@ -4,7 +4,7 @@
 -- load into db as superuser
 --select function_name,matching_terms from search_public_functions('crosstab|intersect|except|ctid',true);
 
-CREATE OR REPLACE FUNCTION adm.search_public_functions(p_search_strings TEXT, p_case_insensitive BOOLEAN, OUT function_name TEXT, OUT matching_terms TEXT) RETURNS SETOF RECORD AS
+CREATE OR REPLACE FUNCTION search_public_functions(p_search_strings TEXT, p_case_insensitive BOOLEAN, OUT function_name TEXT, OUT matching_terms TEXT) RETURNS SETOF RECORD AS
 $body$
 DECLARE
         x                       RECORD;
@@ -63,7 +63,7 @@ BEGIN
 END;
 $body$ language plpgsql SECURITY DEFINER;
 
-COMMENT ON FUNCTION adm.search_public_functions(TEXT, BOOLEAN, OUT TEXT, OUT TEXT) IS 'Search all functions in your PostgreSQL db for any matching terms.';
+COMMENT ON FUNCTION search_public_functions(TEXT, BOOLEAN, OUT TEXT, OUT TEXT) IS 'Search all functions in your PostgreSQL db for any matching terms.';
 
 
 

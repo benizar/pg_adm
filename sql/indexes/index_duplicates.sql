@@ -1,7 +1,7 @@
 
 
 -- based on query from http://wiki.postgresql.org/wiki/Index_Maintenance
-CREATE VIEW adm.index_duplicates AS
+CREATE VIEW index_duplicates AS
     WITH index_duplicate AS (
         SELECT
             first_value(index_pg_class.oid) OVER (index_identity) duplicate_id,
@@ -41,7 +41,7 @@ CREATE VIEW adm.index_duplicates AS
     ORDER BY
         duplicate_id;
 
-COMMENT ON VIEW adm.index_duplicates IS 'List all indexes similar to each other, you should keep an eye on those indexes';
+COMMENT ON VIEW index_duplicates IS 'List all indexes similar to each other, you should keep an eye on those indexes';
 
 
 -- https://wiki.postgresql.org/wiki/Index_Maintenance
@@ -51,8 +51,8 @@ Index size/usage statistics
 
 Table & index sizes along which indexes are being scanned and how many tuples are fetched. See Disk Usage for another view that includes both table and index sizes.
 */
---TODO: compare with adm.index_duplicates_alt
-CREATE VIEW adm.index_duplicates_alt AS
+--TODO: compare with index_duplicates_alt
+CREATE VIEW index_duplicates_alt AS
 
 SELECT pg_size_pretty(SUM(pg_relation_size(idx))::BIGINT) AS SIZE,
        (array_agg(idx))[1] AS idx1, (array_agg(idx))[2] AS idx2,
@@ -64,6 +64,6 @@ FROM (
 GROUP BY KEY HAVING COUNT(*)>1
 ORDER BY SUM(pg_relation_size(idx)) DESC;
 
-COMMENT ON VIEW adm.index_duplicates_alt IS 'List all indexes similar to each other, you should keep an eye on those indexes';
+COMMENT ON VIEW index_duplicates_alt IS 'List all indexes similar to each other, you should keep an eye on those indexes';
 
 

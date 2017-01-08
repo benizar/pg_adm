@@ -1,7 +1,7 @@
 
 
 -- This view displays tables without primary keys. Useful for londiste replication.
-CREATE OR REPLACE VIEW adm.pks_tables_without AS SELECT
+CREATE OR REPLACE VIEW pks_tables_without AS SELECT
     n.nspname AS "Schema",
     c.relname AS "Table Name",
     c.relhaspkey AS "Has PK"
@@ -13,7 +13,7 @@ CREATE OR REPLACE VIEW adm.pks_tables_without AS SELECT
         AND n.nspname NOT IN ('information_schema', 'pg_catalog')
         AND c.relkind='r' ) where c.relhaspkey = 'f';
 
-COMMENT ON VIEW adm.pks_tables_without IS 'Displays tables without primary keys.';
+COMMENT ON VIEW pks_tables_without IS 'Displays tables without primary keys.';
 
 
 

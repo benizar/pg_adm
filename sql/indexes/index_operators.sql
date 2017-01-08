@@ -1,6 +1,6 @@
 
 
-CREATE OR REPLACE FUNCTION adm.index_operators(text) 
+CREATE OR REPLACE FUNCTION index_operators(text) 
 returns table (index_col text, indexable_operator text) AS $$
 
 SELECT
@@ -14,12 +14,12 @@ WHERE amop.amopfamily = opc.opcfamily AND opc.oid = (ss.iopc).x
 ORDER BY (ss.iopc).n, indexable_operator;
 $$ LANGUAGE SQL;
 
-COMMENT ON FUNCTION adm.index_operators(text) IS 'Returns operators usable with a particular index.';
+COMMENT ON FUNCTION index_operators(text) IS 'Returns operators usable with a particular index.';
 
 
 
 --Finding the operators usable with an index
-CREATE VIEW adm.index_operators AS
+CREATE VIEW index_operators AS
     WITH index_information AS (
         SELECT
             pg_index.indexrelid,
@@ -66,7 +66,7 @@ CREATE VIEW adm.index_operators AS
         table_name,
         index_name;
 
-COMMENT ON VIEW adm.index_operators IS 'List of all valid operators for an index';
+COMMENT ON VIEW index_operators IS 'List of all valid operators for an index';
 
 
 

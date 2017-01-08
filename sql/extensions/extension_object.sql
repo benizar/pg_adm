@@ -1,6 +1,6 @@
 
 
-CREATE VIEW adm.extension_objects AS
+CREATE VIEW extension_objects AS
     SELECT
         pg_extension.extname as extension_name,
         coalesce(
@@ -36,7 +36,7 @@ CREATE VIEW adm.extension_objects AS
         refclassid = 'pg_extension'::regclass
 ;
 
-COMMENT ON VIEW adm.extension_objects IS 'List of all objects packed in an extension with associated comment';
+COMMENT ON VIEW extension_objects IS 'List of all objects packed in an extension with associated comment';
 
 
 

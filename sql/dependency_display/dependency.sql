@@ -1,6 +1,6 @@
 
 
-CREATE OR REPLACE VIEW adm.dependency AS
+CREATE OR REPLACE VIEW dependency AS
 WITH RECURSIVE preference AS (
   SELECT 10 AS max_depth
     , 16384 AS min_oid -- user objects only
@@ -82,7 +82,7 @@ WITH RECURSIVE preference AS (
 SELECT * FROM dependency_hierarchy
 ORDER BY dependency_chain;
 
-COMMENT ON VIEW adm.dependency IS 'Display the dependency report.';
+COMMENT ON VIEW dependency IS 'Display the dependency report.';
 
 
 

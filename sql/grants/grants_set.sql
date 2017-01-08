@@ -4,7 +4,7 @@
 -- Example:
 --   SELECT grant_on_tables('role_developer','SELECT, INSERT, UPDATE, DELETE, RULE, REFERENCE, TRIGGER','%','public');
 -- will grant all the maximum permissions on all tables within public schema to role_developer role
-CREATE OR REPLACE FUNCTION adm.grant_on_tables(role_name text, permission text, mask text, schema_name text) RETURNS integer
+CREATE OR REPLACE FUNCTION grant_on_tables(role_name text, permission text, mask text, schema_name text) RETURNS integer
     AS $$
 
 DECLARE
@@ -25,5 +25,5 @@ BEGIN
 END;
 $$ language plpgsql;
 
-COMMENT ON FUNCTION adm.grant_on_tables(text, text, text, text) IS 'Grants given permissions to given role on tables with given LIKE mask within given schema';
+COMMENT ON FUNCTION grant_on_tables(text, text, text, text) IS 'Grants given permissions to given role on tables with given LIKE mask within given schema';
 

@@ -2,7 +2,7 @@
 
 -- Taken from the awesome "PostgreSQL 9.0 High Performance" book by Greg Smith.
 -- Buffer contents summary, with percentages
-CREATE VIEW adm.buffers_breakdown AS
+CREATE VIEW buffers_breakdown AS
 SELECT
   c.relname,
   pg_size_pretty(count(*) * 8192) as buffered,
@@ -19,7 +19,7 @@ FROM pg_class c
 GROUP BY c.oid,c.relname
 ORDER BY 3 DESC;
 
-COMMENT ON VIEW adm.buffers_breakdown IS 'Displays a buffer contents summary, with percentages';
+COMMENT ON VIEW buffers_breakdown IS 'Displays a buffer contents summary, with percentages';
 
 
 

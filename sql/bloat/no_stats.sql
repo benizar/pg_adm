@@ -4,7 +4,7 @@
 -- to display tables/columns which are without stats
 -- so we can't estimate bloat
 
-CREATE OR REPLACE VIEW adm.no_stats AS
+CREATE OR REPLACE VIEW no_stats AS
 
 SELECT table_schema, table_name,
     ( pg_class.relpages = 0 ) AS is_empty,
@@ -27,4 +27,4 @@ WHERE pg_stats.attname IS NULL
 GROUP BY table_schema, table_name, relpages, psut.relname, last_analyze, last_autoanalyze;
 
 
-COMMENT ON VIEW adm.no_stats IS 'Displays tables/columns which are without stats';
+COMMENT ON VIEW no_stats IS 'Displays tables/columns which are without stats';

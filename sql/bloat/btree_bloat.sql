@@ -7,7 +7,7 @@
 -- WARNING: rows with is_na = 't' are known to have bad statistics ("name" type is not supported).
 -- This query is compatible with PostgreSQL 8.2 and after
 
-CREATE OR REPLACE VIEW adm.btree_bloat AS
+CREATE OR REPLACE VIEW btree_bloat AS
 
 SELECT current_database(), nspname AS schemaname, tblname, idxname, bs*(relpages)::bigint AS real_size,
   bs*(relpages-est_pages)::bigint AS extra_size,
@@ -85,14 +85,14 @@ FROM (
 -- WHERE NOT is_na
 ORDER BY 2,3,4;
 
-COMMENT ON VIEW adm.btree_bloat IS 'Displays approximate btree bloat';
+COMMENT ON VIEW btree_bloat IS 'Displays approximate btree bloat';
 
 
 
 
---TODO: compare with adm.btree_bloat
+--TODO: compare with btree_bloat
 
-CREATE OR REPLACE VIEW adm.btree_bloat_alt AS
+CREATE OR REPLACE VIEW btree_bloat_alt AS
 
 -- btree index stats query
 -- estimates bloat for btree indexes
@@ -196,7 +196,7 @@ FROM format_bloat
 WHERE ( bloat_pct > 50 and bloat_mb > 10 )
 ORDER BY bloat_mb DESC;
 
-COMMENT ON VIEW adm.btree_bloat_alt IS 'Displays approximate btree bloat';
+COMMENT ON VIEW btree_bloat_alt IS 'Displays approximate btree bloat';
 
 
 

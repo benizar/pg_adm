@@ -2,13 +2,13 @@
 
 --TODO: convert to sql functions and views
 
-CREATE VIEW adm.object_list_databases AS
+CREATE VIEW object_list_databases AS
 select datname from pg_database where datname <> 'template0';
 
-COMMENT ON VIEW adm.object_list_databases IS 'List all databases.';
+COMMENT ON VIEW object_list_databases IS 'List all databases.';
 
 
-/*CREATE VIEW adm.grants_summary AS
+/*CREATE VIEW grants_summary AS
   select
     usename,
     relation,
@@ -19,7 +19,7 @@ COMMENT ON VIEW adm.object_list_databases IS 'List all databases.';
   order by relation, usename;*/
 
 
-CREATE VIEW adm.grants_databases AS
+CREATE VIEW grants_databases AS
 select
   usename,
   p.priv,
@@ -35,10 +35,10 @@ from
   ) p(priv, privorder)
 where has_database_privilege(u.usename, d.datname, p.priv);
 
-COMMENT ON VIEW adm.grants_databases IS 'List all databases with their grants.';
+COMMENT ON VIEW grants_databases IS 'List all databases with their grants.';
 
 
-CREATE VIEW adm.grants_roles AS
+CREATE VIEW grants_roles AS
 select
   source.rolname usename,
   'member'::text priv,
@@ -49,10 +49,10 @@ from
   join pg_auth_members am on source.oid = am.member
   join pg_roles target on am.roleid = target.oid;
 
-COMMENT ON VIEW adm.grants_roles IS 'List all roles with their grants.';
+COMMENT ON VIEW grants_roles IS 'List all roles with their grants.';
 
 
-CREATE VIEW adm.grants_table AS
+CREATE VIEW grants_table AS
 select
   usename,
   p.priv,
@@ -75,7 +75,7 @@ where
   and n.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast')
 order by n.nspname, c.relname, p.privorder;
 
-COMMENT ON VIEW adm.grants_table IS 'List all tables with their grants.';
+COMMENT ON VIEW grants_table IS 'List all tables with their grants.';
 
 
 --TODO: convert this to a view

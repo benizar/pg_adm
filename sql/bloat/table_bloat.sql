@@ -8,7 +8,7 @@
 * This query is compatible with PostgreSQL 9.0 and more
 */
 
-CREATE OR REPLACE VIEW adm.table_bloat AS
+CREATE OR REPLACE VIEW table_bloat AS
 
 SELECT current_database(), schemaname, tblname, bs*tblpages AS real_size,
   (tblpages-est_tblpages)*bs AS extra_size,
@@ -64,13 +64,13 @@ FROM (
 -- WHERE NOT is_na
 --   AND tblpages*((pst).free_percent + (pst).dead_tuple_percent)::float4/100 >= 1
 
-COMMENT ON VIEW adm.table_bloat IS 'Displays approximate table bloat';
+COMMENT ON VIEW table_bloat IS 'Displays approximate table bloat';
 
 
---TODO: compare with adm.table_bloat
+--TODO: compare with table_bloat
 -- new table bloat query
 -- still needs work; is often off by +/- 20%
-CREATE OR REPLACE VIEW adm.table_bloat_alt AS
+CREATE OR REPLACE VIEW table_bloat_alt AS
 
 WITH constants AS (
     -- define some constants for sizes of things
@@ -211,5 +211,5 @@ WHERE ( pct_bloat >= 50 AND mb_bloat >= 10 )
     OR ( pct_bloat >= 25 AND mb_bloat >= 1000 )
 ORDER BY pct_bloat DESC;
 
-COMMENT ON VIEW adm.table_bloat_alt IS 'Displays approximate table bloat';
+COMMENT ON VIEW table_bloat_alt IS 'Displays approximate table bloat';
 

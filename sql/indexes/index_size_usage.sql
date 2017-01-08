@@ -2,7 +2,7 @@
 
 --Index size/usage statistics
 --based on query from http://wiki.postgresql.org/wiki/Index_Maintenance
-CREATE VIEW adm.index_size_usage AS
+CREATE VIEW index_size_usage AS
 
 SELECT
     t.tablename,
@@ -28,11 +28,11 @@ LEFT OUTER JOIN
 WHERE t.schemaname='public'
 ORDER BY 1,2;
 
-COMMENT ON VIEW adm.index_size_usage IS 'List all indexes and index usage statistics, easily find unused indexes';
+COMMENT ON VIEW index_size_usage IS 'List all indexes and index usage statistics, easily find unused indexes';
 
 
 --Alternative
-CREATE VIEW adm.index_size_usage_alt AS
+CREATE VIEW index_size_usage_alt AS
     SELECT
         pg_tables.schemaname as schema_name,
         pg_tables.tablename as table_name,
@@ -55,6 +55,6 @@ CREATE VIEW adm.index_size_usage_alt AS
         schema_name,
         table_name;
 
-COMMENT ON VIEW adm.index_size_usage_alt IS 'List all indexes and index usage statistics, easily find unused indexes';
+COMMENT ON VIEW index_size_usage_alt IS 'List all indexes and index usage statistics, easily find unused indexes';
 
 

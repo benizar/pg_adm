@@ -5,7 +5,7 @@
 -- SAMPLE CALL:
 -- SELECT clone_schema('public', 'new_schema', TRUE);
 
-CREATE OR REPLACE FUNCTION adm.clone_schema(
+CREATE OR REPLACE FUNCTION clone_schema(
     source_schema text,
     dest_schema text,
     include_recs boolean)
@@ -185,7 +185,7 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION adm.clone_schema (text, text, boolean) IS 'Clone all sequences, tables, data, views & functions from any existing schema to a new one';
+COMMENT ON FUNCTION clone_schema (text, text, boolean) IS 'Clone all sequences, tables, data, views & functions from any existing schema to a new one';
 
 
 

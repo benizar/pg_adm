@@ -7,7 +7,7 @@ Relations are objects in the database such as tables and indexes, and this query
 Note that all of the queries below this point on this page show you the sizes for only those objects which are in the database you are currently connected to.
 */
 
-CREATE VIEW adm.size_relations_biggest AS
+CREATE VIEW size_relations_biggest AS
 
 SELECT nspname || '.' || relname AS "relation",
     pg_size_pretty(pg_relation_size(C.oid)) AS "size"
@@ -17,5 +17,5 @@ SELECT nspname || '.' || relname AS "relation",
   ORDER BY pg_relation_size(C.oid) DESC
   LIMIT 20;
 
-COMMENT ON VIEW adm.size_relations_biggest IS 'Finding the size of your biggest relations.';
+COMMENT ON VIEW size_relations_biggest IS 'Finding the size of your biggest relations.';
 

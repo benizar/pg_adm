@@ -1,7 +1,7 @@
 
 
 
-/*CREATE OR REPLACE VIEW adm.blocking_tree AS
+/*CREATE OR REPLACE VIEW blocking_tree AS
 WITH RECURSIVE
   LOCK AS (
   SELECT pid,

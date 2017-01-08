@@ -3,7 +3,7 @@
 
 -- https://wiki.postgresql.org/wiki/Index_Maintenance
 -- Here's a sample query to pull the number of rows, indexes, and some info about those indexes for each table.
-CREATE VIEW adm.index_summary AS
+CREATE VIEW index_summary AS
 SELECT
     pg_class.relname,
     pg_size_pretty(pg_class.reltuples::BIGINT) AS rows_in_bytes,
@@ -39,7 +39,7 @@ AND  pg_class.relkind = 'r'
 GROUP BY pg_class.relname, pg_class.reltuples, x.is_unique
 ORDER BY 2;
 
-COMMENT ON VIEW adm.index_summary IS 'Display number of rows, indexes, and some info about those indexes for each table';
+COMMENT ON VIEW index_summary IS 'Display number of rows, indexes, and some info about those indexes for each table';
 
 
 

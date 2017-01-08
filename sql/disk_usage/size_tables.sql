@@ -1,6 +1,6 @@
 
 
-CREATE VIEW adm.size_tables AS
+CREATE VIEW size_tables AS
 select
         table_schema as table_schema,
         table_name as table_name,
@@ -35,12 +35,12 @@ where
 order by
         index_size desc;
 
-COMMENT ON VIEW adm.size_tables IS 'List all table sizes, index sizes and various size-related metrics';
+COMMENT ON VIEW size_tables IS 'List all table sizes, index sizes and various size-related metrics';
 
 
 -- View table and index sizes
 -- TODO: compare with size_table
-CREATE VIEW adm.size_tables_alt AS
+CREATE VIEW size_tables_alt AS
 SELECT n.nspname, c.relname, c.relkind AS type,
     pg_size_pretty(pg_table_size(c.oid::regclass)) AS size,
     pg_size_pretty(pg_indexes_size(c.oid::regclass)) AS idxsize,
@@ -57,30 +57,30 @@ SELECT n.nspname, c.relname, c.relkind AS type,
   WHERE (n.nspname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND n.nspname !~ '^pg_toast'::text AND (c.relkind = ANY (ARRAY['r'::"char", 'i'::"char"]))
   ORDER BY pg_total_relation_size(c.oid::regclass) DESC;
 
-COMMENT ON VIEW adm.size_tables_alt IS 'List all table sizes, index sizes and various size-related metrics';
+COMMENT ON VIEW size_tables_alt IS 'List all table sizes, index sizes and various size-related metrics';
 
 
 
 -- Same as above, but with seq scan and idx scan info. Useful to extract seqscan info on large tables.
-CREATE VIEW adm.size_tables_with_scans AS
+CREATE VIEW size_tables_with_scans AS
 SELECT
   tsize.*,
   tstat.seq_scan, tstat.seq_tup_read, tstat.idx_scan, tstat.idx_tup_fetch
 FROM
-  adm.size_tables_alt tsize,
+  size_tables_alt tsize,
   pg_stat_all_tables tstat
 WHERE
 tsize.rel_oid = tstat.relid
 ORDER BY
 tstat.seq_scan * tsize.size_raw DESC;
 
-COMMENT ON VIEW adm.size_tables_with_scans IS 'View table sizes + seq scan and idx scan info. Useful to analyze how often seqscans are executed on large tables';
+COMMENT ON VIEW size_tables_with_scans IS 'View table sizes + seq scan and idx scan info. Useful to analyze how often seqscans are executed on large tables';
 
 
 -- General Table Size Information
 -- This will report size information for all tables, in both raw bytes and "pretty" form.
 
-CREATE VIEW adm.size_tables_general AS
+CREATE VIEW size_tables_general AS
 
 SELECT *, pg_size_pretty(total_bytes) AS total
     , pg_size_pretty(index_bytes) AS INDEX
@@ -99,14 +99,14 @@ SELECT *, pg_size_pretty(total_bytes) AS total
   ) a
 ) a;
 
-COMMENT ON VIEW adm.size_tables_general IS 'Displays size information for all tables, in both raw bytes and "pretty" form.';
+COMMENT ON VIEW size_tables_general IS 'Displays size information for all tables, in both raw bytes and "pretty" form.';
 
 
 /*Finding the total size of your biggest tables
 
 This version of the query uses pg_total_relation_size, which sums total disk space used by the table including indexes and toasted data rather than breaking out the individual pieces:
 */
-CREATE VIEW adm.size_tables_biggest AS
+CREATE VIEW size_tables_biggest AS
 
 SELECT nspname || '.' || relname AS "relation",
     pg_size_pretty(pg_total_relation_size(C.oid)) AS "total_size"
@@ -118,7 +118,7 @@ SELECT nspname || '.' || relname AS "relation",
   ORDER BY pg_total_relation_size(C.oid) DESC
   LIMIT 20;
 
-COMMENT ON VIEW adm.size_tables_biggest IS 'Displays the sum of total disk space used by each table including indexes and toasted data rather than breaking out the individual pieces.';
+COMMENT ON VIEW size_tables_biggest IS 'Displays the sum of total disk space used by each table including indexes and toasted data rather than breaking out the individual pieces.';
 
 
 
