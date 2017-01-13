@@ -107,6 +107,7 @@ Most of the provided tools are available from different projects:
 Check the following resources: 
 
 - [pg_cheat_funcs](https://github.com/MasaoFujii/pg_cheat_funcs) for PGLZ data compresion.
+- [plpgsql-tools](https://github.com/luk4z7/plpgsql-tools)
 
 
 
