@@ -3,21 +3,95 @@ services:
   #
   # [ server stack ]
   #
+  # - pgadmin4
   # - postgres + pg_adm
   #
 
-  db:
-    restart: always
-    # comment on build if want to use the dockerhub build
+  api:
+    # comment build if want to use the dockerhub build
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: benizar/postgrest:latest
+    container_name: api
+
+    environment:
+      POSTGREST_JWT_SECRET:     'secret'
+      POSTGREST_ANONYMOUS:      'postgres'
+      PG_ENV_POSTGRES_PASSWORD: '${AUTHENTICATOR_PASSWORD}'
+      PG_ENV_POSTGRES_DB:       'db'
+      PG_PORT_5432_TCP_ADDR:    'dbm'
+      PG_PORT_5432_TCP_PORT:    '5432'
+      POSTGREST_MAX_ROWS:       '1000000'
+      POSTGREST_POOL:           '200'
+
+
+    ports:
+      - "3000:3000"
+    links:
+       - dbm
+    volumes:
+      - ./config.conf:/etc/postgrest.conf
+    networks:
+      - backend
+    depends_on:
+      - dbm
+    restart: unless-stopped
+
+  pgadmin:
+    links:
+      - dbm
+    image: fenglc/pgadmin4:latest
+    container_name: pgadmin
+
+    volumes:
+      - /data/pgadmin:/root/.pgadmin
+    ports:
+      - "5050:5050"
+    networks:
+      - backend
+    depends_on:
+      - dbm
+    restart: unless-stopped
+
+  dbm:
+    # comment build if want to use the dockerhub build
     build:
       context: .
       dockerfile: Dockerfile
     image: benizar/pg_adm
-    container_name: pg_adm
+    container_name: dbm
+
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    # named volumes
+    volumes:
+      - postgres_data:/var/lib/postgresql/:rw
+      - postgres_backups:/backups
+
     # redirect to 5433 in case you already have postgres installed
     ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: testdb
+      - "5432:5432"
+    networks:
+      - backend
+    restart: unless-stopped
+
+
+#
+# [ volumes definition ]
+#
+# creates Docker volumes which can be mounted by other containers too e.g. for backup
+#
+volumes:
+  postgres_data:
+    driver: local
+  postgres_backups:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
+
