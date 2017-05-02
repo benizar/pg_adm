@@ -1,6 +1,12 @@
 FROM benizar/postgres-ext:9.6
-MAINTAINER Benito Zaragozí <benizar@gmail.com>
 
+# Basic build-time metadata as defined at http://label-schema.org
+LABEL org.label-schema.name="pg_adm" \
+      org.label-schema.description="Docker container for developing and testing the pg_adm extension." \
+      org.label-schema.version="9.6" \
+      org.label-schema.vcs-url="https://github.com/benizar/pg_adm" \
+      org.label-schema.vendor="benito-zaragozi.com" \
+      org.label-schema.schema-version="1.0"
 
 ######################
 # Versions and sources
@@ -9,10 +15,9 @@ MAINTAINER Benito Zaragozí <benizar@gmail.com>
 ENV SOURCE https://github.com/benizar/
 ENV SAKILA https://github.com/benizar/pg_sakila_db.git
 
-
-################
+######################
 # Install pg_sakila_db
-################
+######################
 WORKDIR /install-ext
 RUN git clone $SAKILA
 WORKDIR /install-ext/pg_sakila_db

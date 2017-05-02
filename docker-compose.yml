@@ -8,30 +8,14 @@ services:
   #
 
   api:
-    # comment build if want to use the dockerhub build
-    build:
-      context: .
-      dockerfile: Dockerfile.api
-    image: benizar/postgrest:latest
+    image: begriffs/postgrest:v0.4.1.0
     container_name: api
-
-    environment:
-      POSTGREST_JWT_SECRET:     'secret'
-      POSTGREST_ANONYMOUS:      'postgres'
-      PG_ENV_POSTGRES_PASSWORD: '${AUTHENTICATOR_PASSWORD}'
-      PG_ENV_POSTGRES_DB:       'db'
-      PG_PORT_5432_TCP_ADDR:    'dbm'
-      PG_PORT_5432_TCP_PORT:    '5432'
-      POSTGREST_MAX_ROWS:       '1000000'
-      POSTGREST_POOL:           '200'
-
-
-    ports:
-      - "3000:3000"
     links:
        - dbm
     volumes:
-      - ./config.conf:/etc/postgrest.conf
+      - ./config.conf:/etc/postgrest.conf # use your own postgrest.conf
+    ports:
+      - "3000:3000"
     networks:
       - backend
     depends_on:
@@ -39,13 +23,12 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    links:
-      - dbm
     image: fenglc/pgadmin4:latest
     container_name: pgadmin
-
+    links:
+      - dbm
     volumes:
-      - /data/pgadmin:/root/.pgadmin
+      - /data/pgadmin:/root/.pgadmin # pgadmin4 user and session data (SQLITE)
     ports:
       - "5050:5050"
     networks:
@@ -55,37 +38,25 @@ services:
     restart: unless-stopped
 
   dbm:
-    # comment build if want to use the dockerhub build
     build:
       context: .
       dockerfile: Dockerfile
     image: benizar/pg_adm
     container_name: dbm
-
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-
-    # named volumes
-    volumes:
+    volumes: # named volumes, use compose -v to remove them.
       - postgres_data:/var/lib/postgresql/:rw
       - postgres_backups:/backups
-
-    # redirect to 5433 in case you already have postgres installed
     ports:
-      - "5432:5432"
+      - "5432:5432" # redirect to 5433 in case you already have postgres installed
     networks:
       - backend
     restart: unless-stopped
 
-
-#
-# [ volumes definition ]
-#
-# creates Docker volumes which can be mounted by other containers too e.g. for backup
-#
-volumes:
+volumes: # named volumes that can be mounted by other containers
   postgres_data:
     driver: local
   postgres_backups:
