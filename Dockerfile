@@ -8,25 +8,25 @@ LABEL org.label-schema.name="pg_adm" \
       org.label-schema.vendor="benito-zaragozi.com" \
       org.label-schema.schema-version="1.0"
 
-######################
-# Versions and sources
-######################
+########################
+# Versions and sources #
+########################
 #from https://github.com/benizar/
-ENV SOURCE https://github.com/benizar/
+#ENV SOURCE https://github.com/benizar/
 ENV SAKILA https://github.com/benizar/pg_sakila_db.git
 
-######################
-# Install pg_sakila_db
-######################
+########################
+# Install pg_sakila_db #
+########################
 WORKDIR /install-ext
 RUN git clone $SAKILA
 WORKDIR /install-ext/pg_sakila_db
 RUN make
 RUN make install
 
-################
-# Install pg_adm
-################
+##################
+# Install pg_adm #
+##################
 WORKDIR /install-ext
 
 ADD doc doc/

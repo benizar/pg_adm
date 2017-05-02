@@ -4,7 +4,9 @@ services:
   # [ server stack ]
   #
   # - pgadmin4
-  # - postgres + pg_adm
+  # - postgrest
+  # - postgraphql
+  # - postgres + devtools + pg_adm
   #
 
   api:
@@ -13,7 +15,7 @@ services:
     links:
        - dbm
     volumes:
-      - ./config.conf:/etc/postgrest.conf # use your own postgrest.conf
+      - ./postgrest.conf:/etc/postgrest.conf # use your own postgrest.conf
     ports:
       - "3000:3000"
     networks:
@@ -51,7 +53,7 @@ services:
       - postgres_data:/var/lib/postgresql/:rw
       - postgres_backups:/backups
     ports:
-      - "5432:5432" # redirect to 5433 in case you already have postgres installed
+      - "5433:5432" # redirect to 5433 in case you already have postgres installed. See postgrest.conf
     networks:
       - backend
     restart: unless-stopped
